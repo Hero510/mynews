@@ -1,4 +1,3 @@
-$ php artisan make:controller Admin/ProfileController
 <?php
 
 namespace App\Http\Controllers\Admin;
