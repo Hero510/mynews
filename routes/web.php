@@ -19,7 +19,7 @@ Route::get('/', function() {
 
 use App\Http\Controllers\Admin\NewsController;
 Route::controller(NewsController::class)->prefix('admin')->group(function() {
-    Route::get('news/create', 'add');
+    Route::get('news/create', 'add')->middleware('auth');
 });
 
 /*3.「http://XXXXXX.jp/XXX というアクセスが来たときに、 AAAControllerのbbbというAction に渡すRoutingの設定」を書いてみてください
@@ -31,9 +31,11 @@ Route::Controller(AAAcontroller::class)->group(function() {
 ProfileController の add Action に、admin/profile/edit にアクセスしたら ProfileController の edit Action に割り当てるように設定してください*/
 use App\Http\Controllers\Admin\ProfileController;
 Route::controller(ProfileController::class)->prefix('admin')->group(function() {
-    Route::get('profile/create','add');
-    Route::get('profile/edit','edit');
+    Route::get('profile/create','add')->middleware('auth');
+    Route::get('profile/edit','edit')->middleware('auth');
 });
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
