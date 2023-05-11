@@ -2,6 +2,21 @@
 
 @section('content')
     <div class="container">
+        
+            <div class="input-group col-md-12 mx-auto">
+             
+                <form action="{{ route('news.search') }}" method="GET">
+                 @csrf
+                  <input type="text" class="form-control" name="keyword" placeholder="記事タイトルで検索">
+                  <button class="btn btn-primary" type="submit">検索</button>
+                 
+                 <!--width: 469%;-->
+                 <!--position: relative;-->
+                 <!--top: -36px;-->
+                 <!--right: -876px;-->
+                </form>            
+            </div>
+        
         <hr color="#c0c0c0">
         @if (!is_null($headline))
             <div class="row">
@@ -15,12 +30,15 @@
                                     @endif
                                 </div>
                                 <div class="title p-2">
-                                    <h1>{{ Str::limit($headline->title, 70) }}</h1>
+                                    <h1><a href='{{ route("news.show", ["id" =>  $headline->id]) }}'>
+                                        {{ $headline->title }}
+                                    </a></h1>
+                                    
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <p class="body mx-auto">{{ Str::limit($headline->body, 650) }}</p>
+                            <p class="body mx-auto">{{ Str::limit($headline->body, 100) }}</p>
                         </div>
                     </div>
                 </div>
@@ -37,10 +55,13 @@
                                     {{ $post->updated_at->format('Y年m月d日') }}
                                 </div>
                                 <div class="title">
-                                    {{ Str::limit($post->title, 150) }}
+                                    <!--{{ Str::limit($post->title, 150) }}-->
+                                    <a href='{{ route("news.show", ["id" =>  $post->id]) }}'>
+                                        {{ $post->title }}
+                                    </a>
                                 </div>
                                 <div class="body mt-3">
-                                    {{ Str::limit($post->body, 1500) }}
+                                    {{ Str::limit($post->body, 100) }}
                                 </div>
                             </div>
                             <div class="image col-md-6 text-right mt-4">
@@ -51,6 +72,11 @@
                         </div>
                     </div>
                     <hr color="#c0c0c0">
+                    <p>
+                        <!--<a href='{{ route("news.show", ["id" =>  $post->id]) }}'>-->
+                        <!--    {{ $post->title }}-->
+                        <!--</a>-->
+                    </p>
                 @endforeach
             </div>
         </div>

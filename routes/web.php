@@ -25,6 +25,7 @@ Route::controller(NewsController::class)->prefix('admin')->name('admin.')->middl
     Route::get('news/edit', 'edit')->name('news.edit');
     Route::post('news/edit', 'update')->name('news.update');
     Route::get('news/delete', 'delete')->name('news.delete');
+
 });
 
 
@@ -55,6 +56,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 use App\Http\Controllers\NewsController as PublicNewsController;
 Route::get('/', [PublicNewsController::class, 'index'])->name('news.index');
+Route::get('/news/{id}',[PublicNewsController::class, 'show'])->name('news.show')->whereNumber('id');
+Route::get('/news/search', [PublicNewsController::class, 'search'])->name('news.search');
+
+
 
 use App\Http\Controllers\ProfileController as PublicProfileController;
 Route::get('/profile', [PublicProfileController::class, 'index'])->name('profile.index');
